@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
-import Order from "./Order";
-import Inventory from "./Inventory";
+import Cue from "./Cue";
+import Entry from "./Entry";
 
 class App extends React.Component {
     render() {
@@ -10,8 +10,8 @@ class App extends React.Component {
                 <div className="menu">
                     <Header tagline="This is Dynamic" />
                 </div>
-                <Order />
-                <Inventory />
+                <Cue />
+                <Entry />
             </div>
         )
     }

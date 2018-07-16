@@ -1,13 +1,13 @@
 import React from "react";
 
-class Order extends React.Component {
+class Cue extends React.Component {
     render() {
         return (
             <div className="order">
-                <h1>Order</h1>
+                <h1>Cue</h1>
             </div>
         )
     }
 }
 
-export default Order;
+export default Cue;

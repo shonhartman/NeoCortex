@@ -1,13 +1,13 @@
 import React from "react";
 
-class Inventory extends React.Component {
+class Entry extends React.Component {
     render() {
         return (
             <div className="inventory">
-                <h1>Inventory</h1>
+                <h1>Entry</h1>
             </div>
         )
     }
 }
 
-export default Inventory;
+export default Entry;
