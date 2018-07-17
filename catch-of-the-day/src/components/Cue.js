@@ -4,7 +4,7 @@ class Cue extends React.Component {
     render() {
         return (
             <div className="order">
-                <h1>Cue</h1>
+                <h2>Cue</h2>
             </div>
         )
     }
