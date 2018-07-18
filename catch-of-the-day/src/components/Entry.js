@@ -6,7 +6,7 @@ class Entry extends React.Component {
         return (
             <div className="inventory">
                 <h2>Entry</h2>
-                <AddHabit />
+                <AddHabit addHabit={this.props.addHabit} />
             </div>
         )
     }
