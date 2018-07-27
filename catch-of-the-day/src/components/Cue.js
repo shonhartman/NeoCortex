@@ -18,7 +18,8 @@ class Cue extends React.Component {
 
         return  <li key={key}>
                     {count} times {habit.name}
-                    <button onClick={this.completeHabit}>Done</button>
+                    {/* <button onClick={this.completeHabit}>Done</button> */}
+                    <button onClick={() => this.props.removeFromCue(key)}>&times;</button>
                 </li>
     }
     render() {

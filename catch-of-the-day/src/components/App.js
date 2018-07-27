@@ -15,8 +15,6 @@ class App extends React.Component {
         // first reinstate our localStorage
         const localStorageRef = localStorage.getItem(params.listId);
         if(localStorageRef) {
-            console.log("Restoring It");
-            console.log(JSON.parse(localStorageRef));
             this.setState({cue: JSON.parse(localStorageRef)});
         }
         this.ref = base.syncState(`${params.listId}/habits`, {
@@ -42,12 +40,40 @@ class App extends React.Component {
         this.setState({ habits });
     }
 
+    updateHabit = (key, updatedHabit) => {
+        // 1. take a copy of the current state
+        const habits = {...this.state.habits};
+        // 2. update that state
+        habits[key] = updatedHabit;
+        // 3. set that to state
+        this.setState({ habits });
+    }
+
+    deleteHabit = (key) => {
+        // 1. take a copy of state
+        const habits = { ...this.state.habits };
+        // 2. update the state
+        habits[key] = null;
+        // 3. update state
+        this.setState({ habits });
+
+    }
+
     addToCue = (key) => {
         // 1. take a copy of state
         const cue = {...this.state.cue};
         // 2. Either add to the cue or update the number in our cue
         cue[key] = cue[key] + 1 || 0;
         // 3. Call setState to update our state object
+        this.setState({ cue });
+    }
+
+    removeFromCue = (key) => {
+        // 1. take a copy of cue state
+        const cue = {...this.state.cue};
+        // 2. remove that item from cue
+        delete cue[key];
+        // 3. set the cue state
         this.setState({ cue });
     }
 
@@ -62,8 +88,13 @@ class App extends React.Component {
                         )}
                     </ul>
                 </div>
-                <Cue habits={this.state.habits} cue={this.state.cue} />
-                <Entry addHabit={this.addHabit} />
+                <Cue habits={this.state.habits} cue={this.state.cue} removeFromCue={this.removeFromCue} />
+                <Entry
+                    addHabit={this.addHabit}
+                    updateHabit={this.updateHabit}
+                    deleteHabit={this.deleteHabit}
+                    habits={this.state.habits}
+                />
             </div>
         )
     }
