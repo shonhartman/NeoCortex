@@ -81,7 +81,7 @@ class App extends React.Component {
         return (
             <div className="catch-of-the-day">
                 <div className="menu">
-                    <Header tagline="This is Dynamic" />
+                    <Header tagline={this.props.match.params.listId} />
                     <ul className="fishes">
                         { Object.keys(this.state.habits).map(key =>
                             <Habit index={key} key={key} addToCue={this.addToCue} details={this.state.habits[key]} />
