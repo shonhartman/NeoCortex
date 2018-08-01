@@ -3,18 +3,43 @@ import firebase from "firebase";
 import AddHabit from "./AddHabit"
 import EditHabitForm from "./EditHabitForm";
 import Login from "./Login";
-import { firebaseApp } from "../base";
+import base, { firebaseApp } from "../base";
 
 class Entry extends React.Component {
-    authHandler = async (authData) => {
-        console.log(authData);
+
+    state = {
+        uid: null,
+        owner: null
     }
+
+    authHandler = async (authData) => {
+        // 1. Looko up the current list in the firebase database
+        const list = await base.fetch(this.props.listId, { context: this })
+        console.log(list);
+        // 2. Claim it if there is no owner
+        if (!list.owner) {
+            // save it as our own
+            await base.post(`${this.props.listId}/owner`, {
+                data: authData.user.uid
+            })
+        }
+        // 3. Set the state of the entry component to reflect the current user
+        this.setState({
+            uid: authData.user.uid,
+            owner: list.owner || authData.user.uid
+        });
+        console.log(authData);
+    };
     authenticate = (provider) => {
         const authProvider = new firebase.auth[`${provider}AuthProvider`]();
         firebaseApp.auth().signInWithPopup(authProvider).then(this.authHandler);
     }
     render() {
-        return <Login authenticate={this.authenticate} />
+        // 1. Check if they are logged in
+        if (!this.state.uid) {
+            return <Login authenticate={this.authenticate} />
+        }
+
         return (
             <div className="inventory">
                 <h2>Entry</h2>

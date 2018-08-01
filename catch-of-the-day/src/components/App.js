@@ -94,6 +94,7 @@ class App extends React.Component {
                     updateHabit={this.updateHabit}
                     deleteHabit={this.deleteHabit}
                     habits={this.state.habits}
+                    listId={this.props.match.params.listId}
                 />
             </div>
         )
